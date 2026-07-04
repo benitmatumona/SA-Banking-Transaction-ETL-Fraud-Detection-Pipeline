@@ -1,9 +1,8 @@
 from faker import Faker
 
+faker = Faker()
 
-f = Faker()
-
-for i in range(1, 4):
+for student_id in range(1, 6):
     print(
-        f"{i}, {f.name()} {f.last_name()}, Grade {f.random_int(1, 12)}"
-        )
+        f"{student_id}, {faker.name()}, Grade {faker.random_int(min=8, max=12)}"
+    )
