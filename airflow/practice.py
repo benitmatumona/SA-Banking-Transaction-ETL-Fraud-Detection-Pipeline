@@ -25,9 +25,9 @@ for row in data.itertuples():
         end_date = datetime.strptime("2026-06-01", "%Y-%m-%d")
         open_date = fake.date_between(start_date, end_date)
         new_data["account_id"].append(next(account_id)),
-        new_data["data.customer_id"].append(row.customer_id)
-        new_data["data.customer_id"].append(account_type),
-        new_data["data.customer_id"].append(open_date)
+        new_data["customer_id"].append(row.customer_id)
+        new_data["account_type"].append(account_type),
+        new_data["open_date"].append(open_date)
 
 df = pd.DataFrame(new_data)
 df.to_csv("data/raw/accounts.csv", index=False)
