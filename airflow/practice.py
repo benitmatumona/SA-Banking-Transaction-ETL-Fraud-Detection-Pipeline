@@ -18,14 +18,14 @@ new_data = {"account_id": [], "customer_id": [],
 for row in data.itertuples():
     account_types = ["Cheque", "Savings", "Credit"]
     random_number_of_accounts = random.randint(1, 3)
-    random_accounts = random.sample(account_type, random_number_of_accounts)
+    random_accounts = random.sample(account_types, random_number_of_accounts)
     
     for account_type in random_accounts:
-        start_date = datetime.strptime(data.customer_date, "%Y-%m-%d")
+        start_date = datetime.strptime(row.customer_date, "%Y-%m-%d")
         end_date = datetime.strptime("2026-06-01", "%Y-%m-%d")
         open_date = fake.date_between(start_date, end_date)
         new_data["account_id"].append(next(account_id)),
-        new_data["data.customer_id"].append(data.customer_id)
+        new_data["data.customer_id"].append(row.customer_id)
         new_data["data.customer_id"].append(account_type),
         new_data["data.customer_id"].append(open_date)
 
