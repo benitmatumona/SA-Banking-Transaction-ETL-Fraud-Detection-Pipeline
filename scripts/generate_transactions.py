@@ -18,7 +18,7 @@ transaction_types = {"Deposit": "CASH DEPOSIT", "Withdrawal": "ATM CASH WITHDRAW
                      "Salary": "MONTHLY SALARY"}
 transaction_channel = ["ATM", "POS", "Online", "Mobile App", "Branch"]
 
-merchant = {"Deposit": ["Checkers", "Pick n Pay", "Woolworths", "Uber", "Netflix", "Shell", "Takealot"],
+merchant = {"Deposit": ["This Bank"],
              "Withdrawal": ["This Bank"],
              "Card Purchase": ["Checkers", "Pick n Pay", "Woolworths", "Uber", "Netflix", "Shell", "Takealot"], 
              "EFT": ["SARS", "Municipality", "Landlord", "Checkers", "Pick n Pay", "Woolworths", "Uber", "Netflix", "Shell", "Takealot"], 
@@ -32,8 +32,8 @@ for row in data.itertuples():
 
     for _ in range(random_number_of_transactions):
         amount = random.randint(20, 5000)
-        merchant_name = random.choice(merchant[transaction_type])
         transaction_type = random.choice(list(transaction_types.keys()))
+        merchant_name = random.choice(merchant[transaction_type])
         reference = transaction_types[transaction_type].replace("merchant_name", merchant_name)
         reference = "EFT DEPOSIT" if reference == "CASH DEPOSIT" and random.random() > 0.5 else reference
         is_fraud = random.random() > 0.98
