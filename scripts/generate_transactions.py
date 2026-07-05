@@ -21,7 +21,7 @@ transaction_channel = ["ATM", "POS", "Online", "Mobile App", "Branch"]
 merchant = {"Deposit": ["Checkers", "Pick n Pay", "Woolworths", "Uber", "Netflix", "Shell", "Takealot"],
              "Withdrawal": ["This Bank"],
              "Card Purchase": ["Checkers", "Pick n Pay", "Woolworths", "Uber", "Netflix", "Shell", "Takealot"], 
-             "EFT": ["Checkers", "Pick n Pay", "Woolworths", "Uber", "Netflix", "Shell", "Takealot"], 
+             "EFT": ["SARS", "Municipality", "Landlord", "Checkers", "Pick n Pay", "Woolworths", "Uber", "Netflix", "Shell", "Takealot"], 
             "Salary": ["Employer"]}
 
 for row in data.itertuples():
