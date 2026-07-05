@@ -9,8 +9,7 @@ fake= Faker()
 transaction_id = itertools.count(start=300001)
 
 
-new_data = {"transaction_id": [], "account_id": [], 
-        "transaction_type": [], "amount": []}
+new_data = {"transaction_id": [], "account_id": [], "transaction_type": [], "amount": []}
 transaction_types = ["Deposit", "Withdrawal", "Card Purchase", "EFT", "Salary"]
 transaction_channel = ["ATM", "POS", "Online", "Mobile App", "Branch"]
 merchant = ["Checkers", "Pick n Pay", "Woolworths", "Uber", "Netflix", "Shell", "Takealot"]
