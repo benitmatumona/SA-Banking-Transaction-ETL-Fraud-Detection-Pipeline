@@ -1,54 +1,49 @@
 import pandas as pd
 
+customers_df = pd.read_csv(...)
+accounts_df = pd.read_csv(...)
+transactions_df = pd.read_csv()
 
-customers_df = pd.read_csv("data/raw/customers.csv")
-accounts_df = pd.read_csv("data/raw/accounts.csv")
-transactions_df = pd.read_csv("data/raw/transactions.csv")
 
-
-def remove_duplicates():
+def check_duplicates():
     pass
 
 
-def handle_na_values():
+def check_missing_values():
     pass
 
 
-def primanry_keys_valid():
+def check_primary_keys():
     pass
 
 
-def not_null_columns():
+def check_account_types():
     pass
 
 
-def no_empty_rows():
+def check_provinces():
     pass
 
 
-def no_missid_required_values():
+def check_transaction_amounts():
     pass
 
 
-def account_type_valid():
+def check_transaction_dates():
     pass
 
 
-def valid_province():
+def check_customer_foreign_keys():
     pass
 
 
-def transection_greater_than_zero():
+def check_account_foreign_keys():
     pass
 
 
-def transection_date_after_account_creation():
+def validate():
     pass
 
 
-def all_customer_in_account_in_customer():
-    pass
-
-
-def all_account_in_transaction_in_account():
-    pass
+if __name__ == "__main__":
+    validate()
