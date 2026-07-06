@@ -1,157 +1,283 @@
-# 🇿🇦 SA-Finance-Lakehouse
+# 🇿🇦 South Africa Finance Lakehouse
 
-A production-style data engineering project that simulates the data platform of a South African retail bank.
-
-The project demonstrates data ingestion, storage, transformation, analytics, and workflow automation using Python, PostgreSQL, SQL, and Apache Airflow.
+A production-style Data Engineering project that simulates a South African banking system. The project generates realistic banking data, loads it into PostgreSQL through an ETL pipeline, orchestrates workflows with Apache Airflow, and performs analytical SQL queries. It is designed to demonstrate the complete data engineering lifecycle while serving as a stepping stone toward Machine Learning Engineering.
 
 ---
 
-## Business Problem
+# 🚀 Project Goals
 
-Banks generate large volumes of customer, account, and transaction data every day.
-
-Business teams need reliable reporting to answer questions such as:
-
-* Who are the highest spending customers?
-* Which customers have become inactive?
-* Which provinces generate the most revenue?
-* Which transactions appear suspicious?
-* How many transactions occur daily?
-
-This project builds an end-to-end data platform that transforms raw banking data into business insights.
+- Generate realistic South African banking data.
+- Build a normalized PostgreSQL database.
+- Create an ETL pipeline using Python.
+- Validate data before loading.
+- Automate workflows with Apache Airflow.
+- Perform business analytics using SQL.
+- Follow production-ready project structure and coding practices.
 
 ---
 
-## Project Goals
+# 🛠️ Tech Stack
 
-* Generate realistic banking datasets
-* Load data into PostgreSQL
-* Perform analytical transformations using SQL
-* Build business-focused reporting queries
-* Detect potentially fraudulent activity
-* Automate workflows using Apache Airflow
-* Demonstrate data engineering best practices
-
----
-
-## Architecture
-
-Raw Data
-→ Python Ingestion
-→ PostgreSQL
-→ SQL Transformations
-→ Analytics Layer
-→ Airflow Automation
-→ Business Reports
+- Python
+- Pandas
+- Faker
+- PostgreSQL
+- SQL
+- Apache Airflow
+- Docker
+- Git
+- GitHub
 
 ---
 
-## Planned Dataset
+# 📂 Project Structure
 
-### Customers
-
-* customer_id
-* customer_name
-* province
-* join_date
-
-### Accounts
-
-* account_id
-* customer_id
-* account_type
-* open_date
-
-### Transactions
-
-* transaction_id
-* account_id
-* amount
-* transaction_type
-* merchant
-* transaction_date
-
----
-
-## Planned Analytics
-
-### Top Spenders
-
-Identify high-value customers for premium banking and marketing initiatives.
-
-### Dormant Accounts
-
-Identify customers at risk of churn.
-
-### Province Revenue
-
-Measure regional performance and customer activity.
-
-### Fraud Detection
-
-Flag suspicious transaction patterns for investigation.
-
-### Daily Transaction Monitoring
-
-Track operational activity and transaction trends.
-
----
-
-## Technology Stack
-
-* Python
-* PostgreSQL
-* SQL
-* Pandas
-* SQLAlchemy
-* Apache Airflow
-* Faker
-* Git
-* GitHub
+```text
+SA-FINANCE-LAKEHOUSE/
+│
+├── airflow/
+│   └── bank_etl_dag.py
+│
+├── analytics/
+│   ├── customer_segmentation.sql
+│   ├── fraud_detection.sql
+│   ├── dormant_accounts.sql
+│   ├── province_revenue.sql
+│   ├── top_spenders.sql
+│   └── monthly_revenue.sql
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── data_generation/
+│   ├── generate_customers.py
+│   ├── generate_accounts.py
+│   └── generate_transactions.py
+│
+├── database/
+│   ├── create_database.sql
+│   ├── create_tables.sql
+│   └── indexes.sql
+│
+├── docs/
+│   ├── architecture.png
+│   ├── erd.png
+│   └── screenshots/
+│
+├── etl/
+│   ├── load_to_postgres.py
+│   └── validate_data.py
+│
+├── tests/
+│   ├── test_load_to_postgres.py
+│   └── test_validate_data.py
+│
+├── README.md
+├── requirements.txt
+└── docker-compose.yml
+```
 
 ---
 
-## Project Structure
+# 🏦 Database Design
 
-SA-Finance-Lakehouse/
+## Customers
 
-data/
-├── raw/
-└── processed/
-
-notebooks/
-
-sql/
-├── staging/
-└── marts/
-
-src/
-
-airflow/
-└── dags/
-
-screenshots/
-
-README.md
-requirements.txt
-.gitignore
+| Column | Description |
+|----------|-------------|
+| customer_id | Primary key |
+| full_name | Customer full name |
+| province | South African province |
+| join_date | Date customer joined the bank |
 
 ---
 
-## Future Enhancements
+## Accounts
 
-* Dockerized deployment
-* Star schema warehouse design
-* FastAPI analytics API
-* Spark processing layer
-* Data quality framework
-* CI/CD pipeline
+| Column | Description |
+|----------|-------------|
+| account_id | Primary key |
+| customer_id | Foreign key to Customers |
+| account_type | Cheque, Savings or Credit |
+| open_date | Account opening date |
 
 ---
 
-## Status
+## Transactions
 
-🚧 In Development
+| Column | Description |
+|----------|-------------|
+| transaction_id | Primary key |
+| account_id | Foreign key to Accounts |
+| transaction_date | Transaction date |
+| transaction_type | Deposit, Withdrawal, Card Purchase, EFT, Salary |
+| merchant_name | Merchant involved |
+| amount | Transaction amount |
+| reference | Transaction reference |
+| balance_after_transaction | Running account balance |
+| is_fraud | Fraud indicator |
 
-Current Phase:
-Dataset Generation and Core Data Modeling
+---
+
+# 📈 Data Generation
+
+The project creates realistic banking data including:
+
+- Customers
+- Accounts
+- Transactions
+
+Business rules include:
+
+- Accounts cannot be opened before a customer joins the bank.
+- Transactions cannot occur before an account is opened.
+- Each customer can have between 1 and 3 account types.
+- Each account contains multiple transactions.
+- Fraudulent transactions are randomly generated.
+- Transaction references are generated according to transaction type.
+
+---
+
+# 🔄 ETL Pipeline
+
+The ETL pipeline performs the following steps:
+
+1. Read generated CSV files.
+2. Validate the data.
+3. Connect to PostgreSQL.
+4. Load Customers.
+5. Load Accounts.
+6. Load Transactions.
+7. Commit the transaction.
+8. Handle errors.
+9. Close database connection.
+
+---
+
+# 📊 Analytics
+
+The project answers business questions such as:
+
+- Customer segmentation by province
+- Monthly revenue
+- Fraud detection
+- Dormant accounts
+- Top spending customers
+- Provincial revenue analysis
+
+---
+
+# 📚 Skills Demonstrated
+
+## Python
+
+- File handling
+- Data structures
+- Functions
+- Error handling
+- Modular programming
+
+## Pandas
+
+- Reading CSV files
+- Data transformation
+- Data validation
+- DataFrame manipulation
+
+## SQL
+
+- Database creation
+- Table creation
+- Primary Keys
+- Foreign Keys
+- NOT NULL constraints
+- Indexes
+- Joins
+- Aggregations
+- Window functions
+
+## PostgreSQL
+
+- Database design
+- Constraints
+- Indexing
+- Query optimization
+
+## Data Engineering
+
+- ETL pipelines
+- Data validation
+- Data modeling
+- Data loading
+- Workflow automation
+
+## DevOps
+
+- Docker
+- Git
+- GitHub
+- Apache Airflow
+
+---
+
+# 🎯 Learning Objectives
+
+This project demonstrates the skills expected from a Junior Data Engineer while building the foundation required for Machine Learning Engineering.
+
+Topics covered include:
+
+- Relational database design
+- ETL development
+- Data quality validation
+- Workflow orchestration
+- SQL analytics
+- Production project organization
+
+---
+
+# 🚧 Current Progress
+
+## ✅ Completed
+
+- Customer data generator
+- Account data generator
+- Transaction data generator
+- PostgreSQL database creation
+- Database schema
+- Database indexes
+
+## 🚧 In Progress
+
+- ETL pipeline
+- Data validation
+
+## ⏳ Planned
+
+- Airflow DAG
+- SQL analytics
+- Automated tests
+- Documentation screenshots
+- Architecture diagram
+- Entity Relationship Diagram (ERD)
+
+---
+
+# ▶️ Future Improvements
+
+- Incremental loading
+- Environment variables (.env)
+- Dockerized PostgreSQL
+- Logging
+- Retry mechanisms
+- CI/CD pipeline
+- Data quality reporting
+- Cloud deployment (AWS/GCP/Azure)
+
+---
+
+# 👨‍💻 Author
+
+**Benit Polvie Matumona**
+
+Aspiring Machine Learning Engineer building production-style Data Engineering projects as a foundation for advanced ML systems.
