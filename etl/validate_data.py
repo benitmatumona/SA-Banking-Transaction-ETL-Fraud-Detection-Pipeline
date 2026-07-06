@@ -42,3 +42,9 @@ def transection_greater_than_zero():
     pass
 
 
+def transection_date_after_account_creation():
+    pass
+
+
+def all_customer_in_account_in_customer():
+    pass
