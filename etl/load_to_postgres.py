@@ -19,6 +19,7 @@ conn = psycopg2.connect(
 )    
 
 with conn.cursor() as cur:
+    cur.execute("BEGIN;")
     for row in customers_df.itertuples():
         cur.execute(
             """
@@ -50,13 +51,21 @@ with conn.cursor() as cur:
     for row in transactions_df.itertuples():
         cur.execute(
             """
-            INSERT INTO transactions (account_id, customer_id, account_type, open_date)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO transactions (transaction_id, account_id, transaction_date, transaction_type,
+            merchant_name, amount, refernce, balance_after_transaction, is_fraud)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """,
             (
                 row.transaction_id, 
-                row.customer_id, 
-                row.account_type, 
-                row.open_date
+                row.account_id, 
+                row.transaction_date, 
+                row.transaction_type, 
+                row.merchant_name,
+                row.amount,
+                row.refernce,
+                row.balance_after_transaction,
+                row.is_fraud
              )
         )
+
+        cur.execute("COMMIT;")
