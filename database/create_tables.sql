@@ -10,7 +10,10 @@ CREATE TABLE accounts(
     customer_id INT,
     account_type VARCHAR(100),
     open_date DATE,
-    CONSTRAINT fk_accounts_customers FOREIGN KEY customer_id REFERENCES customers.customer_id
+
+    CONSTRAINT fk_accounts_customers 
+        FOREIGN KEY customer_id 
+        REFERENCES customers.customer_id
 );
 
 CREATE TABLE transactions(
