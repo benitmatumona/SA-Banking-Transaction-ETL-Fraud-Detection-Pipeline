@@ -1,6 +1,5 @@
-CREATE TABLE products(
-    product_id INT PRIMARY KEY,
-    product_name VARCHAR(100) NOT NULL,
-    price INT NOT NULL,
-    description VARCHAR(100) 
-);
+CREATE INDEX grade_index
+ON students(grade);
+
+CREATE INDEX last_name_index 
+ON students(last_name);
