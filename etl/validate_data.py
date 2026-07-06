@@ -48,3 +48,7 @@ def transection_date_after_account_creation():
 
 def all_customer_in_account_in_customer():
     pass
+
+
+def all_account_in_transaction_in_account():
+    pass
