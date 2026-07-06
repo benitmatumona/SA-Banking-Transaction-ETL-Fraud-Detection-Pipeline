@@ -30,3 +30,10 @@ with conn.cursor() as cur:
             "INSERT INTO accounts (account_id, customer_id, account_type, open_date)"
             f"VALUES ({row.account_id}, {row.customer_id}, {row.account_type}, {row.open_date});"
             )
+        
+    for row in transactions_df.itertuples():
+        cur.execute(
+            "INSERT INTO transactions (account_id, customer_id, account_type, open_date)"
+            f"VALUES ({row.transaction_id}, {row.customer_id}, {row.account_type}, {row.open_date});"
+            )
+        
