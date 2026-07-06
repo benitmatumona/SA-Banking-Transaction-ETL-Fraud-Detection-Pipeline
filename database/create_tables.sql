@@ -26,5 +26,8 @@ CREATE TABLE transactions(
     reference VARCHAR(100)
     balance_after_transaction INT,
     if_fraud BOOLEAN,
-    CONSTRAINT fk_transactions_accounts FOREIGN KEY account_id REFERENCES accounts.account_id
+
+    CONSTRAINT fk_transactions_accounts 
+        FOREIGN KEY account_id 
+        REFERENCES accounts.account_id
 );
