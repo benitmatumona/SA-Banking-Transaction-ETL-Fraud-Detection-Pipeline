@@ -53,7 +53,7 @@ try:
             cur.execute(
                 """
                 INSERT INTO transactions (transaction_id, account_id, transaction_date, transaction_type,
-                merchant_name, amount, refernce, balance_after_transaction, is_fraud)
+                merchant_name, amount, reference, balance_after_transaction, is_fraud)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
@@ -69,7 +69,7 @@ try:
                 )
             )
 
-        cur.execute("COMMIT;")
+        conn.commit()
 except Exception:
     conn.rollback()
 
