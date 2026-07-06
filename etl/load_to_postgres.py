@@ -76,4 +76,5 @@ except Exception as e:
     print(e)
 
 finally:
-    conn.close()
+    if conn:
+        conn.close()
