@@ -32,3 +32,7 @@ def no_missid_required_values():
 
 def account_type_valid():
     pass
+
+
+def valid_province():
+    pass
