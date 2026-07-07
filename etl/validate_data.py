@@ -5,8 +5,10 @@ accounts_df = pd.read_csv(...)
 transactions_df = pd.read_csv()
 
 
-def check_duplicates():
-    pass
+def check_duplicates(df: pd.DataFrame, column_name: str) -> bool:
+    if df[column_name].duplicated().any():
+        raise ValueError(f"Duplicate values found in '{column_name}'.")
+    return True
 
 
 def check_missing_values():
