@@ -27,8 +27,13 @@ def check_primary_keys():
     pass
 
 
-def check_account_types():
-    pass
+def check_account_types(
+    df: pd.DataFrame,
+    valid_account_types: list[str]    
+)-> bool:
+    ...
+    
+
 
 
 def check_provinces():
