@@ -50,17 +50,20 @@ def check_provinces():
 def check_transaction_amounts(
         df: pd.DataFrame
 )-> bool:
-    if df["amount"].isna().any():
-        raise ValueError(f"Missing values found in the column 'amount'.")
-    elif df[df["amount"] <= 0].any():
-        raise ValueError(f"One or more values that were less or equal to"
-                         " zero  was found in The column 'amount'."
-                         ) 
-    elif df[df["amount"] > 10_000_000].any():
+    Max_TRANSACTION_AMOUNT = 10_000_000
+
+    if (df["amount"].isna()).any():
         raise ValueError(
-            f"One or more values in The column 'amount' is greater "
-            "than 10 000 000"
-            )
+            f"Missing values found in the column 'amount'."
+        )
+    if (df["amount"] <= 0).any():
+        raise ValueError(
+            "Transaction amounts must be greater than 0."
+        ) 
+    if (df["amount"] > Max_TRANSACTION_AMOUNT).any():
+        raise ValueError(
+            "Transaction amounts cannot be greater than 10 000 000."
+        )
     return True
 
 
