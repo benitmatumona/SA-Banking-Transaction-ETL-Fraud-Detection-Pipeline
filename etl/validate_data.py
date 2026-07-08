@@ -54,7 +54,7 @@ def check_provinces():
 
 
 def check_transaction_amounts(
-        df: pd.DataFrame
+    df: pd.DataFrame
 )-> bool:
     Max_TRANSACTION_AMOUNT = 10_000_000
 
@@ -77,12 +77,23 @@ def check_transaction_dates():
     pass
 
 
-def check_customer_foreign_keys():
-    pass
+def check_foreign_keys(
+    child_df: pd.DataFrame,
+    parent_df: pd.DataFrame,
+    child_column: str,
+    parent_column: str 
+)-> bool:
+    valid_mask = child_df[child_column].isin(parent_df[parent_column])
+    invalid_foreign_keys = sorted(
+        child_column.loc[~valid_mask, child_column].unique()
+    )
 
-
-def check_account_foreign_keys():
-    pass
+    if invalid_foreign_keys:
+        raise ValueError(
+            f"Invalid {child_column} values found: "
+            f"{sorted(invalid_foreign_keys)}"
+        )
+    return True
 
 
 def validate():
@@ -93,8 +104,7 @@ def validate():
     check_provinces()
     check_transaction_amounts()
     check_transaction_dates()
-    check_customer_foreign_keys()
-    check_account_foreign_keys()
+    check_foreign_keys()
 
     print("Validation passed.")
 
