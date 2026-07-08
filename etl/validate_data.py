@@ -31,9 +31,15 @@ def check_account_types(
     df: pd.DataFrame,
     valid_account_types: list[str]    
 )-> bool:
-    ...
-    
+    booleans: list[bool] = df["account_type"].isin(valid_account_types)
+    invalid_accounts = set()
 
+    for account_type, is_valid in zip(df["account_type"], booleans):
+        if not is_valid:
+            invalid_accounts.add(account_type)
+    if invalid_accounts:
+        raise ValueError(f"Invalid accounts found '{sorted(invalid_accounts)}'.")
+    return True    
 
 
 def check_provinces():
