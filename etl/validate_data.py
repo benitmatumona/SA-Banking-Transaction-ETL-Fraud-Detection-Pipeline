@@ -85,7 +85,7 @@ def check_foreign_keys(
 )-> bool:
     valid_mask = child_df[child_column].isin(parent_df[parent_column])
     invalid_foreign_keys = sorted(
-        child_column.loc[~valid_mask, child_column].unique()
+        child_df.loc[~valid_mask, child_column].unique()
     )
 
     if invalid_foreign_keys:
