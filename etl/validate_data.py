@@ -73,8 +73,12 @@ def check_transaction_amounts(
     return True
 
 
-def check_transaction_dates():
-    pass
+def check_transaction_dates(
+    transactions_df: pd.DataFrame,
+    accounts_df: pd.DataFrame
+) -> bool:
+    accounts_df["account_id"]
+    
 
 
 def check_foreign_keys(
