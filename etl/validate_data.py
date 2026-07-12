@@ -77,7 +77,10 @@ def check_transaction_dates(
     transactions_df: pd.DataFrame,
     accounts_df: pd.DataFrame
 ) -> bool:
-    df = transactions_df[["transaction_id", "transaction_date"]].join()
+    df = transactions_df["transaction_id"].join(
+        df["transaction_date"],
+        df["account_id"]
+    )
     
 
 
