@@ -88,9 +88,10 @@ def check_transaction_dates(
     )
     transaction_date = pd.to_datetime(df["transaction_date"])
     open_date = pd.to_datetime(df["open_date"])
+    today = pd.timestamp.today().normalize()
     invalid_dates = df[
         (transaction_date < open_date)
-        | (transaction_date > pd.timestamp.today().normalize())
+        | (transaction_date > today)
     ]
     if not invalid_dates.empty():
         raise ValueError("\n".join([
