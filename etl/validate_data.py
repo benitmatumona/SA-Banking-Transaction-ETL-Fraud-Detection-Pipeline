@@ -27,10 +27,6 @@ def check_missing_values(
     return True
 
 
-def check_primary_keys():
-    pass
-
-
 def check_allowed_types(
     df: pd.DataFrame,
     column_name: str,
@@ -47,10 +43,6 @@ def check_allowed_types(
             f"Invalid {column_name} found '{sorted(invalid_values)}'."
         )
     return True    
-
-
-def check_provinces():
-    pass
 
 
 def check_transaction_amounts(
