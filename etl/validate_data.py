@@ -92,8 +92,9 @@ def check_transaction_dates(
         (transaction_date < open_date)
         | (transaction_date > pd.timestamp.today().normalize())
     ]
-    if invalid_dates.shape[0] > 0:
+    if not invalid_dates.empty():
         raise ValueError("\n".join([
+            "Invalid dates found for columns: "
             f"{row.transaction_id},{row.account_id},"
             f"{row.open_date},{row.transaction_date}" 
             for row in invalid_dates.itertuples()
