@@ -77,12 +77,21 @@ def check_transaction_dates(
     transactions_df: pd.DataFrame,
     accounts_df: pd.DataFrame
 ) -> bool:
-    df = transactions_df["transaction_id"].join(
+    df = transactions_df[["transaction_id", "account_id"]].join(
+        df["open_date"],
         df["transaction_date"],
-        df["account_id"]
     )
+    invalid_dates = df[
+        pd.to_datetime(df["transaction_date"]) < pd.to_datetime(df["open_date"])
+    ]
+    if df.shape[0] > 0:
+        raise ValueError("\n".join([
+            f"{row.transaction_id},{row.account_id},"
+            f"{row.open_date},{row.transaction_date}" 
+            for row in invalid_dates
+        ]))
+    return True
     
-
 
 def check_foreign_keys(
     child_df: pd.DataFrame,
