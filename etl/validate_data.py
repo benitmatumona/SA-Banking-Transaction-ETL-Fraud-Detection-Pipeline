@@ -1,5 +1,5 @@
 import pandas as pd
-import datetime
+from datetime import date
 
 
 customers_df = pd.read_csv(...)
@@ -88,7 +88,7 @@ def check_transaction_dates(
     )
     invalid_dates = df[
         pd.to_datetime(df["transaction_date"]) < pd.to_datetime(df["open_date"])
-        or pd.to_datetime(df["transaction_date"]) > datetime.datetime().today()
+        or pd.to_datetime(df["transaction_date"]) > date().today()
     ]
     if df.shape[0] > 0:
         raise ValueError("\n".join([
