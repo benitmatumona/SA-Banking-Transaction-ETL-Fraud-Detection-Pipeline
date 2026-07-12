@@ -95,7 +95,7 @@ def check_transaction_dates(
     ]
     if not invalid_dates.empty():
         raise ValueError("\n".join([
-            "Invalid dates found for columns: "
+            "Invalid dates found for columns: \n"
             f"{row.transaction_id},{row.account_id},"
             f"{row.open_date},{row.transaction_date}" 
             for row in invalid_dates.itertuples()
