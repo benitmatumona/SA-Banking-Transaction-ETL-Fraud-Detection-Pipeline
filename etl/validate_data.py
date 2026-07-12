@@ -1,4 +1,6 @@
 import pandas as pd
+import datetime
+
 
 customers_df = pd.read_csv(...)
 accounts_df = pd.read_csv(...)
@@ -77,7 +79,7 @@ def check_transaction_dates(
     transactions_df: pd.DataFrame,
     accounts_df: pd.DataFrame
 ) -> bool:
-    pd.merge(
+    df = pd.merge(
         transactions_df[
             ["transaction_id", "account_id", "transaction_date"]
         ], 
@@ -86,6 +88,7 @@ def check_transaction_dates(
     )
     invalid_dates = df[
         pd.to_datetime(df["transaction_date"]) < pd.to_datetime(df["open_date"])
+        or pd.to_datetime(df["transaction_date"]) > datetime.datetime().today()
     ]
     if df.shape[0] > 0:
         raise ValueError("\n".join([
