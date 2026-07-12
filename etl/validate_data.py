@@ -77,9 +77,12 @@ def check_transaction_dates(
     transactions_df: pd.DataFrame,
     accounts_df: pd.DataFrame
 ) -> bool:
-    df = transactions_df[["transaction_id", "account_id"]].join(
-        df["open_date"],
-        df["transaction_date"],
+    pd.merge(
+        transactions_df[
+            ["transaction_id", "account_id", "transaction_date"]
+        ], 
+        accounts_df["account_id", "open_date"]
+        , on="account_id", how="inner"
     )
     invalid_dates = df[
         pd.to_datetime(df["transaction_date"]) < pd.to_datetime(df["open_date"])
@@ -88,7 +91,7 @@ def check_transaction_dates(
         raise ValueError("\n".join([
             f"{row.transaction_id},{row.account_id},"
             f"{row.open_date},{row.transaction_date}" 
-            for row in invalid_dates
+            for row in invalid_dates.itertuples()
         ]))
     return True
     
