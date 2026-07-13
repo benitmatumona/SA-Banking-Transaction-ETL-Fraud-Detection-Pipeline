@@ -150,7 +150,7 @@ def validate(customers_df, accounts_df, transactions_df):
         ],
     )
 
-    check_foreign_keys(accounts_df, customers_df, "account_id", "account_id")
+    check_foreign_keys(accounts_df, customers_df, "customer_id", "customer_id")
 
     check_foreign_keys(transactions_df, accounts_df, "account_id", "account_id")
 
