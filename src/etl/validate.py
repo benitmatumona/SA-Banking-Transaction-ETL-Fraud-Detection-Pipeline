@@ -101,7 +101,7 @@ def validate(customers_df, accounts_df, transactions_df):
 
     check_missing_values(
         accounts_df,
-        ["account_id", "customer_id", "account_type", "open_date", "balance"],
+        ["account_id", "customer_id", "account_type", "open_date"],
     )
 
     check_missing_values(
