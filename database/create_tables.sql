@@ -2,8 +2,7 @@ CREATE TABLE customers(
     customer_id INT PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
     province VARCHAR(100) NOT NULL,
-    join_date date NOT NULL,
-    date_of_birth DATE NOT NULL
+    join_date date NOT NULL
 );
 
 CREATE TABLE accounts(
@@ -20,11 +19,11 @@ CREATE TABLE accounts(
 CREATE TABLE transactions(
     transaction_id INT PRIMARY KEY,
     account_id INT NOT NULL,
-    transaction_date DATE NOT NULL,
+    transaction_date TIMESTAMP NOT NULL,
     transaction_type VARCHAR(100) NOT NULL,
     transaction_channel VARCHAR(50) NOT NULL,
     merchant_name VARCHAR(100),
-    amount INT NOT NULL,
+    amount NUMERIC(12,2) NOT NULL,
     reference VARCHAR(100) NOT NULL,
     balance_after_transaction INT NOT NULL,
     is_fraud BOOLEAN,
