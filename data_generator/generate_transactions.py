@@ -1,11 +1,13 @@
 import random
-import pandas as pd
 import itertools
+import os
+import pandas as pd
 from datetime import datetime
 from faker import Faker
 
 
-data = pd.read_csv("accounts.csv")
+os.makedirs("data/raw", exist_ok=True)
+data = pd.read_csv("data/raw/accounts.csv")
 fake = Faker()
 transaction_id = itertools.count(start=300001)
 
@@ -61,7 +63,7 @@ merchant = {
 for row in data.itertuples():
     random_number_of_transactions = random.randint(3, 10)
     open_date = datetime.strptime(row.open_date, "%Y-%m-%d")
-    end_date = datetime.strptime("2026-06-30", "%Y-%m-%d")
+    end_date = pd.Timestamp.today()
     balance = random_number_of_transactions * 5001
 
     for _ in range(random_number_of_transactions):
