@@ -147,7 +147,6 @@ def validate():
             "Eastern Cape",
             "Free State",
         ],
-    
     )
 
     check_foreign_keys(accounts_df, customers_df, "customer_id", "customer_id")
@@ -155,9 +154,9 @@ def validate():
     check_foreign_keys(transactions_df, accounts_df, "transaction_id", "transaction_id")
 
     check_transaction_amounts(transactions_df, "amount")
-    
+
     check_transaction_dates(transactions_df, accounts_df)
-    
+
     print("Validation passed.")
 
 

@@ -3,7 +3,7 @@ import os
 from faker import Faker
 
 
-fake = Faker("en_ZA")
+fake = Faker()
 provinces = [
     "Gauteng",
     "Western Cape",

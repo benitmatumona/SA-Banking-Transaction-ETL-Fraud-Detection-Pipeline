@@ -6,7 +6,7 @@ from datetime import datetime
 from faker import Faker
 
 
-data = pd.read_csv("customers.csv")
+data = pd.read_csv("../data/raw/customers.csv")
 fake = Faker()
 os.makedirs("data/raw", exist_ok=True)
 account_id = itertools.count(start=200001)
