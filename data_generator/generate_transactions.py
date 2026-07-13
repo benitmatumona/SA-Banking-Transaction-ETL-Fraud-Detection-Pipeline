@@ -4,6 +4,7 @@ import os
 import pandas as pd
 from datetime import datetime
 from faker import Faker
+from src.config import TRANSACTION_CHANNELS
 
 
 os.makedirs("data/raw", exist_ok=True)
@@ -31,7 +32,6 @@ transaction_types = {
     "EFT": "EFT TO merchant_name",
     "Salary": "MONTHLY SALARY",
 }
-transaction_channel = ["ATM", "POS", "Online", "Mobile App", "Branch"]
 
 merchant = {
     "Deposit": ["This Bank"],
@@ -84,7 +84,7 @@ for row in data.itertuples():
         new_data["account_id"].append(row.account_id)
         new_data["transaction_date"].append(fake.date_between(open_date, end_date))
         (new_data["transaction_type"].append(transaction_type),)
-        (new_data["transaction_channel"].append(random.choice(transaction_channel)),)
+        (new_data["transaction_channel"].append(random.choice(TRANSACTION_CHANNELS)),)
         (
             new_data["merchant_name"].append(
                 merchant_name if transaction_type != "Salary" else "Employer"

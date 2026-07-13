@@ -4,6 +4,7 @@ import itertools
 import pandas as pd
 from datetime import datetime
 from faker import Faker
+from src.config import ACCOUNT_TYPES
 
 
 os.makedirs("data/raw", exist_ok=True)
@@ -15,9 +16,8 @@ account_id = itertools.count(start=200001)
 new_data = {"account_id": [], "customer_id": [], "account_type": [], "open_date": []}
 
 for row in data.itertuples():
-    account_types = ["Cheque", "Savings", "Credit"]
     random_number_of_accounts = random.randint(1, 3)
-    random_accounts = random.sample(account_types, random_number_of_accounts)
+    random_accounts = random.sample(ACCOUNT_TYPES, random_number_of_accounts)
 
     for account_type in random_accounts:
         start_date = datetime.strptime(row.join_date, "%Y-%m-%d")
