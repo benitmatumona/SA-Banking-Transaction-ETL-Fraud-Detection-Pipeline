@@ -1,6 +1,11 @@
 import pandas as pd
 import os
-from src.config import VALID_PROVINCES, ACCOUNT_TYPES, TRANSACTION_TYPES, TRANSACTION_CHANNELS
+from src.config import (
+    VALID_PROVINCES,
+    ACCOUNT_TYPES,
+    TRANSACTION_TYPES,
+    TRANSACTION_CHANNELS,
+)
 
 os.makedirs("data/raw", exist_ok=True)
 customers_df = pd.read_csv("data/raw/customers.csv")
@@ -117,11 +122,7 @@ def validate(customers_df, accounts_df, transactions_df):
         ],
     )
 
-    check_allowed_types(
-        accounts_df,
-        "account_type",
-        ACCOUNT_TYPES
-    )
+    check_allowed_types(accounts_df, "account_type", ACCOUNT_TYPES)
 
     check_allowed_types(
         transactions_df,

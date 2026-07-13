@@ -67,18 +67,24 @@ for row in data.itertuples():
         reference = TRANSACTION_TYPES[transaction_type].replace(
             "merchant_name", merchant_name
         )
+
         reference = (
             "EFT DEPOSIT"
             if reference == "CASH DEPOSIT" and random.random() > 0.5
             else reference
         )
-        is_fraud = random.random() > 0.98
+
+        transaction_channel = random.choice(TRANSACTION_CHANNELS)
+        if amount > 4500 and transaction_channel == "ATM":
+            fraud_probability = 0.20
+        else:
+            fraud_probability = 0.02
 
         (new_data["transaction_id"].append(next(transaction_id)),)
         new_data["account_id"].append(row.account_id)
         new_data["transaction_date"].append(fake.date_between(open_date, end_date))
         (new_data["transaction_type"].append(transaction_type),)
-        (new_data["transaction_channel"].append(random.choice(TRANSACTION_CHANNELS)),)
+        new_data["transaction_channel"].append(transaction_channel)
         (
             new_data["merchant_name"].append(
                 merchant_name if transaction_type != "Salary" else "Employer"
