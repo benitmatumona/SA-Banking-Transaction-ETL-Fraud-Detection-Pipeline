@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+from src.config import VALID_PROVINCES, ACCOUNT_TYPES, TRANSACTION_TYPES, TRANSACTION_CHANNELS
 
 os.makedirs("data/raw", exist_ok=True)
 customers_df = pd.read_csv("data/raw/customers.csv")
@@ -119,35 +120,25 @@ def validate(customers_df, accounts_df, transactions_df):
     check_allowed_types(
         accounts_df,
         "account_type",
-        ["Savings", "Cheque", "Credit", "Business"],
+        ACCOUNT_TYPES
     )
 
     check_allowed_types(
         transactions_df,
         "transaction_type",
-        ["Deposit", "Withdrawal", "Card Purchase", "Salary", "EFT"],
+        TRANSACTION_TYPES,
     )
 
     check_allowed_types(
         transactions_df,
         "transaction_channel",
-        ["ATM", "Mobile App", "Online Banking", "Branch", "POS", "Online"],
+        TRANSACTION_CHANNELS,
     )
 
     check_allowed_types(
         customers_df,
         "province",
-        [
-            "Gauteng",
-            "Western Cape",
-            "KwaZulu-Natal",
-            "Limpopo",
-            "Mpumalanga",
-            "North West",
-            "Northern Cape",
-            "Eastern Cape",
-            "Free State",
-        ],
+        VALID_PROVINCES,
     )
 
     check_foreign_keys(accounts_df, customers_df, "customer_id", "customer_id")

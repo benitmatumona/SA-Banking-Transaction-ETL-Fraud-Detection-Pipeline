@@ -10,7 +10,7 @@ VALID_PROVINCES = [
     "Eastern Cape",
 ]
 
-ACCOUNT_TYPES = ["Cheque", "Savings", "Credit"]
+ACCOUNT_TYPES = ["Cheque", "Savings", "Credit", "Business"]
 
 TRANSACTION_CHANNELS = [
     "ATM",
@@ -21,7 +21,7 @@ TRANSACTION_CHANNELS = [
     "Online Banking",
 ]
 
-TRANSACTION_TYPES = transaction_types = {
+TRANSACTION_TYPES = {
     "Deposit": "CASH DEPOSIT",
     "Withdrawal": "ATM CASH WITHDRAWAL",
     "Card Purchase": "merchant_name",
