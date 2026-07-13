@@ -60,7 +60,7 @@ def check_transaction_dates(
     open_date = pd.to_datetime(df["open_date"])
     today = pd.Timestamp.today().normalize()
     invalid_dates = df[(transaction_date < open_date) | (transaction_date > today)]
-    if not invalid_dates.empty():
+    if not invalid_dates.empty:
         raise ValueError(
             "\n".join(
                 [
