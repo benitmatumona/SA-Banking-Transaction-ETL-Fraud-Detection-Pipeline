@@ -22,6 +22,7 @@ CREATE TABLE transactions(
     account_id INT NOT NULL,
     transaction_date DATE NOT NULL,
     transaction_type VARCHAR(100) NOT NULL,
+    transaction_channel VARCHAR(50) NOT NULL,
     merchant_name VARCHAR(100),
     amount INT NOT NULL,
     reference VARCHAR(100) NOT NULL,
