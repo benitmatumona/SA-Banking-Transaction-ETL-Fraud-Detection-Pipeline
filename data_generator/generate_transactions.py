@@ -27,7 +27,7 @@ new_data = {
 }
 
 
-merchant = {
+MERCHANTS = {
     "Deposit": ["This Bank"],
     "Withdrawal": ["This Bank"],
     "Card Purchase": [
@@ -63,7 +63,7 @@ for row in data.itertuples():
     for _ in range(random_number_of_transactions):
         amount = random.randint(20, 5000)
         transaction_type = random.choice(list(TRANSACTION_TYPES.keys()))
-        merchant_name = random.choice(merchant[transaction_type])
+        merchant_name = random.choice(MERCHANTS[transaction_type])
         reference = TRANSACTION_TYPES[transaction_type].replace(
             "merchant_name", merchant_name
         )
