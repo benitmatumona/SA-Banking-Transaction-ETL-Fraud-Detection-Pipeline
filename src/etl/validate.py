@@ -1,9 +1,10 @@
 import pandas as pd
+import os
 
-
-customers_df = pd.read_csv(...)
-accounts_df = pd.read_csv(...)
-transactions_df = pd.read_csv()
+os.makedirs("data/raw", exist_ok=True)
+customers_df = pd.read_csv("data/raw/customes.csv")
+accounts_df = pd.read_csv("data/raw/accounts.csv")
+transactions_df = pd.read_csv("data/raw/transactions_df.csv")
 
 
 def check_duplicates(df: pd.DataFrame, column_name: str) -> bool:
@@ -88,7 +89,7 @@ def check_foreign_keys(
     return True
 
 
-def validate():
+def validate(customers_df, accounts_df, transactions_df):
     check_duplicates(customers_df, "customer_id")
     check_duplicates(accounts_df, "account_id")
     check_duplicates(transactions_df, "transactions_id")
@@ -161,4 +162,4 @@ def validate():
 
 
 if __name__ == "__main__":
-    validate()
+    validate(customers_df, accounts_df, transactions_df)
