@@ -89,9 +89,65 @@ def check_foreign_keys(
 
 
 def validate():
-    check_duplicates()
-    check_missing_values()
-    check_allowed_types()
+    check_duplicates(customers_df, "customer_id")
+    check_duplicates(accounts_df, "account_id")
+    check_duplicates(transactions_df, "transactions_id")
+
+    check_missing_values(
+        customers_df,
+        ["customer_id", "first_name", "last_name", "province", "date_of_birth"],
+    )
+
+    check_missing_values(
+        accounts_df,
+        ["account_id", "customer_id", "account_type", "open_date", "balance"],
+    )
+
+    check_missing_values(
+        transactions_df,
+        [
+            "transaction_id",
+            "account_id",
+            "transaction_date",
+            "transaction_type",
+            "amount",
+            "transaction_channel",
+        ],
+    )
+
+    check_allowed_types(
+        accounts_df,
+        "account_type",
+        ["Savings", "Cheque", "Credit", "Business"],
+    )
+
+    check_allowed_types(
+        transactions_df,
+        "transactions_type",
+        ["Deposit", "Withdrawal", "Card Purchase", "Salary", "EFT"],
+    )
+
+    check_allowed_types(
+        transactions_df,
+        "merchant_name",
+        ["ATM", "Mobile App", "Online Banking", "Branch", "POS"],
+    )
+
+    check_allowed_types(
+        customers_df,
+        "province",
+        [
+            "Gauteng",
+            "Western Cape",
+            "KwaZulu-Natal",
+            "Limpopo",
+            "Mpumalanga",
+            "North West",
+            "Northern Cape",
+            "Eastern Cape",
+            "Free State",
+        ],
+    )
     check_transaction_amounts()
     check_transaction_dates()
     check_foreign_keys()
