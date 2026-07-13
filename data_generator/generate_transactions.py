@@ -4,7 +4,9 @@ import os
 import pandas as pd
 from datetime import datetime
 from faker import Faker
-from src.config import TRANSACTION_CHANNELS, TRANSACTION_TYPES
+from src.config import (
+    TRANSACTION_CHANNELS, TRANSACTION_TYPES, MERCHANTS
+)
 
 
 os.makedirs("data/raw", exist_ok=True)
@@ -27,33 +29,6 @@ new_data = {
 }
 
 
-MERCHANTS = {
-    "Deposit": ["This Bank"],
-    "Withdrawal": ["This Bank"],
-    "Card Purchase": [
-        "Checkers",
-        "Pick n Pay",
-        "Woolworths",
-        "Uber",
-        "Netflix",
-        "Shell",
-        "Takealot",
-    ],
-    "EFT": [
-        "SARS",
-        "Municipality",
-        "Landlord",
-        "Checkers",
-        "Pick n Pay",
-        "Woolworths",
-        "Uber",
-        "Netflix",
-        "Shell",
-        "Takealot",
-    ],
-    "Salary": ["Employer"],
-}
-
 for row in data.itertuples():
     random_number_of_transactions = random.randint(3, 10)
     open_date = datetime.strptime(row.open_date, "%Y-%m-%d")
@@ -62,7 +37,7 @@ for row in data.itertuples():
 
     for _ in range(random_number_of_transactions):
         amount = random.randint(20, 5000)
-        transaction_type = random.choice(list(TRANSACTION_TYPES.keys()))
+        transaction_type = random.choice(tuple(TRANSACTION_TYPES))
         merchant_name = random.choice(MERCHANTS[transaction_type])
         reference = TRANSACTION_TYPES[transaction_type].replace(
             "merchant_name", merchant_name
@@ -78,29 +53,34 @@ for row in data.itertuples():
         if amount > 4500 and transaction_channel == "ATM":
             is_fraud = random.random() < 0.20
         else:
-            fraud_probability = random.random() < 0.02
+            is_fraud = random.random() < 0.02
 
-        (new_data["transaction_id"].append(next(transaction_id)),)
+        new_data["transaction_id"].append(next(transaction_id))
         new_data["account_id"].append(row.account_id)
-        new_data["transaction_date"].append(fake.date_between(open_date, end_date))
-        (new_data["transaction_type"].append(transaction_type),)
+        new_data["transaction_date"].append(fake.date_time_between(open_date, end_date))
+        new_data["transaction_type"].append(transaction_type)
         new_data["transaction_channel"].append(transaction_channel)
         (
             new_data["merchant_name"].append(
                 merchant_name if transaction_type != "Salary" else "Employer"
             ),
         )
-        (new_data["amount"].append(amount),)
+        new_data["amount"].append(amount)
+
+        is_incomming = random.random() >= 0.5
 
         if transaction_type in ["Salary", "Deposit"]:
             balance += amount
-        elif transaction_type == "EFT" and random.random() >= 0.5:
-            balance += amount
+        elif transaction_type == "EFT":
+            if is_incomming:
+                balance += amount
+            else:
+                balance -= amount
         else:
             balance -= amount
 
-        (new_data["reference"].append(reference),)
-        (new_data["balance_after_transaction"].append(balance),)
+        new_data["reference"].append(reference)
+        new_data["balance_after_transaction"].append(balance)
         new_data["is_fraud"].append(is_fraud)
 
 

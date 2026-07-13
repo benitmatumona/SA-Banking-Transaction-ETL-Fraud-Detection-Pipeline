@@ -27,3 +27,30 @@ TRANSACTION_TYPES = {
     "EFT": "EFT TO merchant_name",
     "Salary": "MONTHLY SALARY",
 }
+
+MERCHANTS = {
+    "Deposit": ["This Bank"],
+    "Withdrawal": ["This Bank"],
+    "Card Purchase": [
+        "Checkers",
+        "Pick n Pay",
+        "Woolworths",
+        "Uber",
+        "Netflix",
+        "Shell",
+        "Takealot",
+    ],
+    "EFT": [
+        "SARS",
+        "Municipality",
+        "Landlord",
+        "Checkers",
+        "Pick n Pay",
+        "Woolworths",
+        "Uber",
+        "Netflix",
+        "Shell",
+        "Takealot",
+    ],
+    "Salary": ["Employer"],
+}
