@@ -124,13 +124,13 @@ def validate(customers_df, accounts_df, transactions_df):
 
     check_allowed_types(
         transactions_df,
-        "transactions_type",
+        "transaction_type",
         ["Deposit", "Withdrawal", "Card Purchase", "Salary", "EFT"],
     )
 
     check_allowed_types(
         transactions_df,
-        "merchant_name",
+        "transaction_type",
         ["ATM", "Mobile App", "Online Banking", "Branch", "POS"],
     )
 
