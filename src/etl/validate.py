@@ -2,9 +2,9 @@ import pandas as pd
 import os
 
 os.makedirs("data/raw", exist_ok=True)
-customers_df = pd.read_csv("data/raw/customes.csv")
+customers_df = pd.read_csv("data/raw/customers.csv")
 accounts_df = pd.read_csv("data/raw/accounts.csv")
-transactions_df = pd.read_csv("data/raw/transactions_df.csv")
+transactions_df = pd.read_csv("data/raw/transactions.csv")
 
 
 def check_duplicates(df: pd.DataFrame, column_name: str) -> bool:
@@ -92,11 +92,11 @@ def check_foreign_keys(
 def validate(customers_df, accounts_df, transactions_df):
     check_duplicates(customers_df, "customer_id")
     check_duplicates(accounts_df, "account_id")
-    check_duplicates(transactions_df, "transactions_id")
+    check_duplicates(transactions_df, "transaction_id")
 
     check_missing_values(
         customers_df,
-        ["customer_id", "first_name", "last_name", "province", "date_of_birth"],
+        ["customer_id", "full_name", "province", "date_of_birth"],
     )
 
     check_missing_values(
