@@ -60,19 +60,19 @@ for row in data.itertuples():
         new_data["transaction_date"].append(fake.date_time_between(open_date, end_date))
         new_data["transaction_type"].append(transaction_type)
         new_data["transaction_channel"].append(transaction_channel)
-        (
-            new_data["merchant_name"].append(
-                merchant_name if transaction_type != "Salary" else "Employer"
-            ),
+        
+        new_data["merchant_name"].append(
+            merchant_name if transaction_type != "Salary" else "Employer"
         )
+        
         new_data["amount"].append(amount)
 
-        is_incomming = random.random() >= 0.5
+        is_incoming = random.random() >= 0.5
 
-        if transaction_type in ["Salary", "Deposit"]:
+        if transaction_type in ("Salary", "Deposit"):
             balance += amount
         elif transaction_type == "EFT":
-            if is_incomming:
+            if is_incoming:
                 balance += amount
             else:
                 balance -= amount
