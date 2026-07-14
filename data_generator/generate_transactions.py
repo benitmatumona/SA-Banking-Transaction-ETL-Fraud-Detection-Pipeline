@@ -14,9 +14,8 @@ data = pd.read_csv("data/raw/accounts.csv")
 fake = Faker()
 transaction_id = itertools.count(start=300001)
 
-
-def generate_transactions(data: pd.DataFrame)-> pd.DataFrame:
-    new_data: dict[str, list] = {
+def get_new_df():
+    return {
         "transaction_id": [],
         "account_id": [],
         "transaction_date": [],
@@ -29,7 +28,12 @@ def generate_transactions(data: pd.DataFrame)-> pd.DataFrame:
         "is_fraud": [],
     }
 
+
+
+def generate_transactions(data: pd.DataFrame)-> pd.DataFrame:
+    new_data = get_new_df()
     end_date = pd.Timestamp.today()
+    
     for row in data.itertuples():
         random_number_of_transactions = random.randint(3, 10)
         open_date = datetime.strptime(row.open_date, "%Y-%m-%d")
