@@ -21,7 +21,7 @@ for row in data.itertuples():
     random_accounts = random.sample(ACCOUNT_TYPES, random_number_of_accounts)
 
     for account_type in random_accounts:
-        start_date = datetime.strptime(row.join_date, "%Y-%m-%d")
+        start_date = pd.to_datetime(row.join_date)
         end_date = pd.Timestamp.today()
         open_date = fake.date_between(start_date, end_date)
         new_data["account_id"].append(next(account_id))
