@@ -30,7 +30,7 @@ def check_missing_values(df: pd.DataFrame, required_columns: list[str]) -> bool:
 def check_allowed_types(
     df: pd.DataFrame, column_name: str, allowed_types: list[str]
 ) -> bool:
-    valid_mask: list[bool] = df[column_name].isin(allowed_types)
+    valid_mask = df[column_name].isin(allowed_types)
     invalid_values = set()
 
     for value, is_valid in zip(df[column_name], valid_mask):
@@ -88,9 +88,9 @@ def check_foreign_keys(
 ) -> bool:
     valid_mask = child_df[child_column].isin(parent_df[parent_column])
     invalid_foreign_keys = child_df.loc[~valid_mask, child_column].unique()
-    invalid_foreign_keys = sorted(invalid_foreign_keys)
+    sorted_invalid_keys = sorted(invalid_foreign_keys)
 
-    if invalid_foreign_keys:
+    if sorted_invalid_keys:
         raise ValueError(f"Invalid {child_column} values found: {invalid_foreign_keys}")
     return True
 
