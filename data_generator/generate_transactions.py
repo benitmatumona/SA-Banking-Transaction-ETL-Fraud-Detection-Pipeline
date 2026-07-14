@@ -8,7 +8,9 @@ from src.config import TRANSACTION_CHANNELS, TRANSACTION_TYPES, MERCHANTS
 
 
 def generate_transactions(data: pd.DataFrame) -> pd.DataFrame:
-    new_data: dict[str, list[Any]] = {
+    
+    TransactionData = dict[str, list[Any]]
+    new_data: TransactionData = {
         "transaction_id": [],
         "account_id": [],
         "transaction_date": [],
@@ -28,7 +30,14 @@ def generate_transactions(data: pd.DataFrame) -> pd.DataFrame:
         balance = random_number_of_transactions * 5001
 
         for _ in range(random_number_of_transactions):
-            amount = random.randint(20, 5000)
+            amount = random.choices(
+            population=[
+                random.randint(20, 300),
+                random.randint(301, 1000),
+                random.randint(1001, 5000),
+            ],
+            weights=[70, 25, 5],
+            )[0]
             transaction_type = random.choice(tuple(TRANSACTION_TYPES.keys()))
             merchant_name = random.choice(MERCHANTS[transaction_type])
             reference = TRANSACTION_TYPES[transaction_type].replace(
