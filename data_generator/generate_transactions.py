@@ -15,7 +15,7 @@ fake = Faker()
 transaction_id = itertools.count(start=300001)
 
 
-new_data = {
+new_data: dict[str, list] = {
     "transaction_id": [],
     "account_id": [],
     "transaction_date": [],
@@ -51,9 +51,11 @@ for row in data.itertuples():
         
         transaction_channel = random.choice(TRANSACTION_CHANNELS[transaction_type])
         if amount > 4500 and transaction_channel == "ATM":
-            is_fraud = random.random() < 0.20
+            is_fraud = random.random() <= 0.20
+        elif transaction_type == "Card Purchase" and merchant_name == "Uber" and amount > 3000:
+            is_fraud = random.random() <= 0.12
         else:
-            is_fraud = random.random() < 0.02
+            is_fraud = random.random() <= 0.02
 
         new_data["transaction_id"].append(next(transaction_id))
         new_data["account_id"].append(row.account_id)
