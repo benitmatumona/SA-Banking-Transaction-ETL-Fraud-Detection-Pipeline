@@ -8,6 +8,7 @@ from src.config import TRANSACTION_CHANNELS, TRANSACTION_TYPES, MERCHANTS
 
 
 def generate_transactions(data: pd.DataFrame) -> pd.DataFrame:
+    data["open_date"] = pd.to_datetime(data["open_date"])
     new_data: dict[str, list[Any]] = {
         "transaction_id": [],
         "account_id": [],
@@ -20,10 +21,9 @@ def generate_transactions(data: pd.DataFrame) -> pd.DataFrame:
         "balance_after_transaction": [],
         "is_fraud": [],
     }
-
+    
     for row in data.itertuples():
         random_number_of_transactions = random.randint(3, 10)
-        open_date = pd.to_datetime(row.open_date)
         end_date = pd.Timestamp.today()
         balance = random_number_of_transactions * 5001
 
@@ -58,7 +58,7 @@ def generate_transactions(data: pd.DataFrame) -> pd.DataFrame:
             new_data["transaction_id"].append(next(transaction_id))
             new_data["account_id"].append(row.account_id)
             new_data["transaction_date"].append(
-                fake.date_time_between(open_date, end_date)
+                fake.date_time_between(row.open_date, end_date)
             )
             new_data["transaction_type"].append(transaction_type)
             new_data["transaction_channel"].append(transaction_channel)
