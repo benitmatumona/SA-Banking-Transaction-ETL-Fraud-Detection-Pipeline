@@ -42,7 +42,12 @@ def generate_transactions(data: pd.DataFrame) -> pd.DataFrame:
             )
 
             transaction_channel = random.choice(TRANSACTION_CHANNELS[transaction_type])
-            is_fraud = is_fraud()
+            is_fraud = is_fraud(
+                amount,
+                transaction_channel,
+                transaction_type,
+                merchant_name,
+            )
             new_data["transaction_id"].append(next(transaction_id))
             new_data["account_id"].append(row.account_id)
             new_data["transaction_date"].append(
