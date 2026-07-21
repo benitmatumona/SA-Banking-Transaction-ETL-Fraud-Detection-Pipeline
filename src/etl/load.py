@@ -61,7 +61,7 @@ def connect(
     )
 
 
-def load_customers(customers_df: pd.DataFrame, cur: cursor) -> None:
+def load_customers(customers_df: pd.DataFrame, cur: Cursor) -> None:
     for row in customers_df.itertuples():
         cur.execute(
             """
@@ -72,7 +72,7 @@ def load_customers(customers_df: pd.DataFrame, cur: cursor) -> None:
         )
 
 
-def load_accounts(accounts_df: pd.DataFrame, cur: cursor) -> None:    
+def load_accounts(accounts_df: pd.DataFrame, cur: Cursor) -> None:    
     for row in accounts_df.itertuples():
         cur.execute(
             """
