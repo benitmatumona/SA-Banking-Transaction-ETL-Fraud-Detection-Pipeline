@@ -64,6 +64,22 @@ MERCHANTS = {
     "Salary": ["Employer"],
 }
 
+CUSTOMER_SQL = """
+        INSERT INTO customers (customer_id, full_name, province, join_date)
+        VALUES %s
+    """
+
+ACCOUNT_SQL = """
+        INSERT INTO accounts (account_id, customer_id, account_type, open_date)
+        VALUES %s
+        """
+
+TRANSACTION_SQL =  """
+        INSERT INTO transactions (transaction_id, account_id, transaction_date, transaction_type,
+        transaction_channel, merchant_name, amount, reference, balance_after_transaction, is_fraud)
+        VALUES %s
+        """
+
 MAX_TRANSACTION_AMOUNT = 10_000_000
 
 

@@ -7,7 +7,11 @@ from src.config import (
     DB_NAME,
     DB_USER,
     DB_PASSWORD,
-    DB_HOST
+    DB_HOST,
+    CUSTOMER_SQL,
+    ACCOUNT_SQL,
+    TRANSACTION_SQL
+
 )
 
 
@@ -47,8 +51,8 @@ def load(
             
         logging.info("Data successfully loaded into PostgreSQL.")
 
-    except Exception:
-        logging.exception("Database load failed.")
+    except Exception as e:
+        logging.exception(f"Database load failed. {e}")
 
 
 def connect(
@@ -67,13 +71,10 @@ def load_customers(customers_df: pd.DataFrame, cur: Cursor) -> None:
         customers_df.itertuples(index=False, name=None)
     )
     
-    execute_values(
+    bulk_insert(
         cur,
-        """
-        INSERT INTO customers (customer_id, full_name, province, join_date)
-        VALUES %s
-        """,
-        rows,
+        CUSTOMER_SQL,
+        rows
     )
 
 
@@ -82,12 +83,9 @@ def load_accounts(accounts_df: pd.DataFrame, cur: Cursor) -> None:
         accounts_df.itertuples(index=False, name=None)
     )
     
-    execute_values(
+    bulk_insert(
         cur,
-        """
-        INSERT INTO accounts (account_id, customer_id, account_type, open_date)
-        VALUES %s
-        """,
+        ACCOUNT_SQL,
         rows
     )
 
@@ -96,14 +94,23 @@ def load_transactions(transactions_df: pd.DataFrame, cur: Cursor) -> None:
     rows = list(
         transactions_df.itertuples(index=False, name=None)
     )
-    execute_values(    
+    bulk_insert(    
         cur,
-        """
-        INSERT INTO transactions (transaction_id, account_id, transaction_date, transaction_type,
-        transaction_channel, merchant_name, amount, reference, balance_after_transaction, is_fraud)
-        VALUES %s
-        """,
+        TRANSACTION_SQL,
         rows
+    )
+
+
+def bulk_insert(
+    cur: Cursor,
+    sql: str,
+    rows: list[tuple],
+) -> None:
+    execute_values(
+        cur,
+        sql,
+        rows,
+        page_size=1000
     )
 
 
