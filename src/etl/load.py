@@ -12,10 +12,36 @@ database = "south_africa_bank"
 conn = None
 
 
-try:
+
+def connect(
+    database: str, 
+    username: str, 
+    password:str, 
+    host: str,
+):
     conn = psycopg2.connect(
-        dbname=database, user=username, password=password, host="localhost"
+        dbname=database, user=username, password=password, host=host
     )
+    return conn
+
+
+def load_customers():
+    raise ValueError
+
+
+def load_accounts():
+    raise ValueError
+
+
+def load_transactions():
+    raise ValueError
+
+
+def load():
+    raise ValueError
+
+try:
+    conn = connect(database, username, password, "localhost")
 
     with conn.cursor() as cur:
         for row in customers_df.itertuples():
