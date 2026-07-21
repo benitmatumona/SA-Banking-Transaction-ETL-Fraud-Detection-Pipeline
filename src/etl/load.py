@@ -26,6 +26,7 @@ def load(
             load_accounts(accounts_df, cur)
             load_transactions(transactions_df, cur)
             conn.commit()
+            logging.info("Data successfully loaded into PostgreSQL.")
 
     except Exception as e:
         if conn:
