@@ -104,8 +104,8 @@ def is_fraud(
         is_fraud = random.random() <= 0.02
     return is_fraud
 
+def generate_transactions_file():
 
-if __name__ == "__main__":
     os.makedirs("data/raw", exist_ok=True)
     data = pd.read_csv(
         "data/raw/accounts.csv",
@@ -116,3 +116,7 @@ if __name__ == "__main__":
     generated_df = generate_transactions(data)
     generated_df.to_csv("data/raw/transactions.csv", index=False)
     os.makedirs("data/raw", exist_ok=True)
+
+
+if __name__ == "__main__":
+    generate_transactions_file()
