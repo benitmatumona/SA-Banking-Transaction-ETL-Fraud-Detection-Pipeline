@@ -37,8 +37,11 @@ def load(
     try:
         with connect(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST) as conn:
             with conn.cursor() as cur:
+                logging.info("loading customers...")
                 load_customers(customers_df, cur)
+                logging.info("loading accounts...")
                 load_accounts(accounts_df, cur)
+                logging.info("loading transactions...")
                 load_transactions(transactions_df, cur)
             
         logging.info("Data successfully loaded into PostgreSQL.")
@@ -59,7 +62,6 @@ def connect(
 
 
 def load_customers(customers_df: pd.DataFrame, cur: cursor) -> None:
-    
     for row in customers_df.itertuples():
         cur.execute(
             """
