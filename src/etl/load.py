@@ -41,10 +41,9 @@ def connect(
     password:str, 
     host: str,
 ) -> psycopg2.extensions.connection:
-    conn = psycopg2.connect(
+    return psycopg2.connect(
         dbname=database, user=username, password=password, host=host
     )
-    return conn
 
 
 def load_customers(customers_df: pd.DataFrame, cur: cursor) -> None:
