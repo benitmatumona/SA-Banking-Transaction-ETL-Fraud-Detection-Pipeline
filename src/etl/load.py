@@ -2,6 +2,7 @@ import logging
 import pandas as pd
 import psycopg2
 from psycopg2.extensions import cursor as Cursor
+from psycopg2.extras import execute_values
 from src.config import (
     DB_NAME,
     DB_USER,
@@ -62,14 +63,18 @@ def connect(
 
 
 def load_customers(customers_df: pd.DataFrame, cur: Cursor) -> None:
-    for row in customers_df.itertuples():
-        cur.execute(
-            """
-            INSERT INTO customers (customer_id, full_name, province, join_date)
-            VALUES (%s, %s, %s, %s)
-            """,
-            (row.customer_id, row.full_name, row.province, row.join_date),
-        )
+    values = [
+        (row.customer_id, row.full_name, row.province, row.join_date)
+        for row in customers_df.itertuples()
+    ]
+    
+    execute_values(
+        """
+        INSERT INTO customers (customer_id, full_name, province, join_date)
+        VALUES %s
+        """,
+        values,
+    )
 
 
 def load_accounts(accounts_df: pd.DataFrame, cur: Cursor) -> None:    
