@@ -90,9 +90,9 @@ def bulk_insert(
     rows: list[tuple[Any, ...]],
 ) -> None:
     execute_values(
-        cur,
-        sql,
-        rows,
+        cur=cur,
+        sql=sql,
+        rows=rows,
         page_size=BULK_INSERT_PAGE_SIZE
     )
 
