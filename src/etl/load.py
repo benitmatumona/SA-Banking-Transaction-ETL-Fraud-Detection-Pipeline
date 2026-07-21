@@ -28,10 +28,10 @@ def load(
             conn.commit()
             logging.info("Data successfully loaded into PostgreSQL.")
 
-    except Exception as e:
+    except Exception:
         if conn:
             conn.rollback()
-        logging.exception(f"Database load failed. {e}")
+        logging.exception(f"Database load failed.")
 
     finally:
         if conn:

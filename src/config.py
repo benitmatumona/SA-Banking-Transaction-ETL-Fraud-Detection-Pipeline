@@ -65,3 +65,8 @@ MERCHANTS = {
 }
 
 MAX_TRANSACTION_AMOUNT = 10_000_000
+
+
+DB_USER = "postgres"
+DB_PASSWORD = ""
+DB_NAME = "south_africa_bank"
