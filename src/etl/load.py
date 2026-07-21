@@ -32,7 +32,7 @@ def load(
         logging.info("Data successfully loaded into PostgreSQL.")
 
     except Exception:
-        logging.exception(f"Database load failed.")
+        logging.exception("Database load failed.")
 
 
 def connect(
