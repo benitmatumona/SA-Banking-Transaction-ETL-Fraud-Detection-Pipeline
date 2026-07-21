@@ -4,6 +4,12 @@ import psycopg2
 from psycopg2.extensions import cursor
 
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+
+
 def load(
     customers_df: pd.DataFrame,
     accounts_df: pd.DataFrame,
