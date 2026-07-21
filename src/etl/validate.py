@@ -90,10 +90,10 @@ def check_foreign_keys(
 
 
 def validate(
-        customers_df: pd.DataFrame, 
-        accounts_df: pd.DataFrame, 
-        transactions_df: pd.DataFrame
-    )-> None:
+    customers_df: pd.DataFrame, 
+    accounts_df: pd.DataFrame, 
+    transactions_df: pd.DataFrame
+)-> None:
     check_duplicates(customers_df, "customer_id")
     check_duplicates(accounts_df, "account_id")
     check_duplicates(transactions_df, "transaction_id")
