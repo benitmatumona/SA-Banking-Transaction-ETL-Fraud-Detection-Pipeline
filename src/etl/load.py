@@ -59,7 +59,7 @@ def load(
                 load_table(transactions_df, cur, TRANSACTION_SQL)
                 logging.info("Loaded %d transactions", len(transactions_df))
             
-        logging.info("Data successfully loaded into PostgreSQL.")
+        logging.info("Successfully loaded all data into PostgreSQL.")
 
     except psycopg2.Error:
         logging.exception("Database load failed.")
