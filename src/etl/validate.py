@@ -1,5 +1,4 @@
 import pandas as pd
-import os
 import logging
 from src.config import (
     VALID_PROVINCES,
@@ -7,6 +6,11 @@ from src.config import (
     TRANSACTION_TYPES,
     ALL_TRANSACTION_CHANNELS,
     MAX_TRANSACTION_AMOUNT
+)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
 
@@ -93,7 +97,7 @@ def validate(
     customers_df: pd.DataFrame, 
     accounts_df: pd.DataFrame, 
     transactions_df: pd.DataFrame
-)-> None:
+) -> None:
     check_duplicates(customers_df, "customer_id")
     check_duplicates(accounts_df, "account_id")
     check_duplicates(transactions_df, "transaction_id")
