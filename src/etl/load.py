@@ -25,8 +25,23 @@ def connect(
     return conn
 
 
-def load_customers():
-    raise ValueError
+def load_customers(df: pd.DataFrame, *columns)-> None:
+    
+    for row in df.itertuples():
+        cur.execute(
+            """
+            INSERT INTO customers (customer_id, full_name, province, join_date)
+            VALUES (%s, %s, %s, %s)
+            """,
+            (row.customer_id, row.full_name, row.province, row.join_date),
+        )
+
+
+def get_coloumn_list(columns: list[str]):
+    return ','.join([column for column in columns])[:-1]
+
+def get_prameterised_query(columns: list[str]):
+    return ','.join(["%S" for _ in range(len(columns))])
 
 
 def load_accounts():
@@ -44,14 +59,7 @@ try:
     conn = connect(database, username, password, "localhost")
 
     with conn.cursor() as cur:
-        for row in customers_df.itertuples():
-            cur.execute(
-                """
-                INSERT INTO customers (customer_id, full_name, province, join_date)
-                VALUES (%s, %s, %s, %s)
-                """,
-                (row.customer_id, row.full_name, row.province, row.join_date),
-            )
+        load_customers(customers_df)
 
         for row in accounts_df.itertuples():
             cur.execute(
