@@ -7,7 +7,11 @@ from faker import Faker
 from src.config import TRANSACTION_CHANNELS, TRANSACTION_TYPES, MERCHANTS
 
 
-def generate_transactions(data: pd.DataFrame) -> pd.DataFrame:
+def generate_transactions(
+    data: pd.DataFrame,
+    fake: Faker,
+    transaction_id: int
+) -> pd.DataFrame:
     new_data: dict[str, list[Any]] = {
         "transaction_id": [],
         "account_id": [],
