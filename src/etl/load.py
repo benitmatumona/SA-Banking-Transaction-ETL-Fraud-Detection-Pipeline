@@ -1,7 +1,7 @@
 import logging
 import pandas as pd
 import psycopg2
-from psycopg2.extensions import cursor
+from psycopg2.extensions import cursor as Cursor
 from src.config import (
     DB_NAME,
     DB_USER,
@@ -68,7 +68,7 @@ def load_accounts(accounts_df: pd.DataFrame, cur: cursor) -> None:
         )
 
 
-def load_transactions(transactions_df: pd.DataFrame, cur: cursor) -> None:
+def load_transactions(transactions_df: pd.DataFrame, cur: Cursor) -> None:
     for row in transactions_df.itertuples():
         cur.execute(
             """
