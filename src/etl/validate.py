@@ -31,24 +31,23 @@ def check_allowed_types(
     df: pd.DataFrame, column_name: str, allowed_types: list[str]
 ) -> bool:
     valid_mask = df[column_name].isin(allowed_types)
-    invalid_values = set()
+    invalid_values = sorted(
+        set(df.loc[~valid_mask, column_name])
+    )
 
-    for value, is_valid in zip(df[column_name], valid_mask):
-        if not is_valid:
-            invalid_values.add(value)
     if invalid_values:
         raise ValueError(f"Invalid {column_name} found '{sorted(invalid_values)}'.")
     return True
 
 
 def check_transaction_amounts(df: pd.DataFrame) -> bool:
-    Max_TRANSACTION_AMOUNT = 10_000_000
+    MAX_TRANSACTION_AMOUNT = 10_000_000
 
     if (df["amount"].isna()).any():
         raise ValueError(f"Missing values found in the column 'amount'.")
     if (df["amount"] <= 0).any():
         raise ValueError("Transaction amounts must be greater than 0.")
-    if (df["amount"] > Max_TRANSACTION_AMOUNT).any():
+    if (df["amount"] > MAX_TRANSACTION_AMOUNT).any():
         raise ValueError("Transaction amounts cannot be greater than 10 000 000.")
     return True
 
@@ -91,11 +90,15 @@ def check_foreign_keys(
     sorted_invalid_keys = sorted(invalid_foreign_keys)
 
     if sorted_invalid_keys:
-        raise ValueError(f"Invalid {child_column} values found: {invalid_foreign_keys}")
+        raise ValueError(f"Invalid {child_column} values found: {sorted_invalid_keys}")
     return True
 
 
-def validate(customers_df, accounts_df, transactions_df):
+def validate(
+        customers_df: pd.DataFrame, 
+        accounts_df: pd.DataFrame, 
+        transactions_df: pd.DataFrame
+    )-> None:
     check_duplicates(customers_df, "customer_id")
     check_duplicates(accounts_df, "account_id")
     check_duplicates(transactions_df, "transaction_id")
@@ -127,13 +130,21 @@ def validate(customers_df, accounts_df, transactions_df):
     check_allowed_types(
         transactions_df,
         "transaction_type",
-        TRANSACTION_TYPES,
+        list(TRANSACTION_TYPES.keys()),
+    )
+
+    allowed_types = sorted(
+        {
+            channel 
+            for channels in TRANSACTION_CHANNELS.values()
+            for channel in channels
+        }
     )
 
     check_allowed_types(
         transactions_df,
         "transaction_channel",
-        TRANSACTION_CHANNELS,
+        allowed_types,
     )
 
     check_allowed_types(

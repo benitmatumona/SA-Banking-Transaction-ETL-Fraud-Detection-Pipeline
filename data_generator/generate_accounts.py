@@ -9,7 +9,10 @@ from src.config import ACCOUNT_TYPES
 
 
 os.makedirs("data/raw", exist_ok=True)
-data = pd.read_csv("data/raw/customers.csv")
+data = pd.read_csv(
+    "data/raw/accounts.csv",
+    parse_dates=["open_date"]
+    )
 fake = Faker()
 account_id = itertools.count(start=200001)
 
@@ -21,7 +24,7 @@ for row in data.itertuples():
     random_accounts = random.sample(ACCOUNT_TYPES, random_number_of_accounts)
 
     for account_type in random_accounts:
-        start_date = pd.to_datetime(row.join_date)
+        start_date = row.open_date
         end_date = pd.Timestamp.today()
         open_date = fake.date_between(start_date, end_date)
         new_data["account_id"].append(next(account_id))

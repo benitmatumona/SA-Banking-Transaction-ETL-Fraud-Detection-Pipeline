@@ -8,7 +8,6 @@ from src.config import TRANSACTION_CHANNELS, TRANSACTION_TYPES, MERCHANTS
 
 
 def generate_transactions(data: pd.DataFrame) -> pd.DataFrame:
-    data["open_date"] = pd.to_datetime(data["open_date"])
     new_data: dict[str, list[Any]] = {
         "transaction_id": [],
         "account_id": [],
@@ -108,7 +107,10 @@ def is_fraud(
 
 if __name__ == "__main__":
     os.makedirs("data/raw", exist_ok=True)
-    data = pd.read_csv("data/raw/accounts.csv")
+    data = pd.read_csv(
+        "data/raw/accounts.csv",
+        parse_dates=["open_date"]
+    )
     fake = Faker()
     transaction_id = itertools.count(start=300001)
     generated_df = generate_transactions(data)
