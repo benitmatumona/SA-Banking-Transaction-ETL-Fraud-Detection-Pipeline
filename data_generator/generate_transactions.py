@@ -45,13 +45,13 @@ def generate_transactions(
                 merchant_name
             )
 
-            
             is_fraud = is_fraud(
                 amount,
                 transaction_channel,
                 transaction_type,
                 merchant_name,
             )
+            
             new_data["transaction_id"].append(next(transaction_id))
             new_data["account_id"].append(row.account_id)
             new_data["transaction_date"].append(
