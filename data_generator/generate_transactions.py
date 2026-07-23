@@ -37,17 +37,6 @@ def generate_transactions(
                 TRANSACTION_CHANNELS
             ),
 
-            def generate_transaction(
-                transaction_types,
-                transaction_channels,
-            ):
-                transaction_types = random.choice(tuple(TRANSACTION_TYPES.keys()))
-                transaction_channels = random.choice(TRANSACTION_CHANNELS[transaction_type])
-            return transaction_type, transaction_channel
-
-        
-            transaction_type = random.choice(tuple(TRANSACTION_TYPES.keys()))
-            transaction_channel = random.choice(TRANSACTION_CHANNELS[transaction_type])
             merchant_name = random.choice(MERCHANTS[transaction_type])
 
             reference = generate_reference(
@@ -93,6 +82,16 @@ def generate_transactions(
             new_data["balance_after_transaction"].append(balance)
             new_data["is_fraud"].append(is_fraud)
     return pd.DataFrame(new_data)
+
+
+def generate_transaction(
+                transaction_types,
+                transaction_channels,
+            ):
+                transaction_types = random.choice(tuple(TRANSACTION_TYPES.keys()))
+                transaction_channels = random.choice(TRANSACTION_CHANNELS[transaction_type])
+                return transaction_types, transaction_channels
+
 
 def generate_amount():
     return random.choices(
