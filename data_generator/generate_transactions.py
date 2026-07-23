@@ -51,36 +51,8 @@ def generate_transactions(
                 transaction_type,
                 merchant_name,
             )
-            
-            new_data["transaction_id"].append(next(transaction_id))
-            new_data["account_id"].append(row.account_id)
-            new_data["transaction_date"].append(
-                fake.date_time_between(row.open_date, end_date)
-            )
-            new_data["transaction_type"].append(transaction_type)
-            new_data["transaction_channel"].append(transaction_channel)
 
-            new_data["merchant_name"].append(
-                merchant_name if transaction_type != "Salary" else "Employer"
-            )
-
-            new_data["amount"].append(amount)
-
-            is_incoming = random.random() >= 0.5
-
-            if transaction_type in ("Salary", "Deposit"):
-                balance += amount
-            elif transaction_type == "EFT":
-                if is_incoming:
-                    balance += amount
-                else:
-                    balance -= amount
-            else:
-                balance -= amount
-
-            new_data["reference"].append(reference)
-            new_data["balance_after_transaction"].append(balance)
-            new_data["is_fraud"].append(is_fraud)
+            write_row()
     return pd.DataFrame(new_data)
 
 
@@ -138,6 +110,41 @@ def is_fraud(
     else:
         is_fraud = random.random() <= 0.02
     return is_fraud
+
+
+def write_row(
+    df: dict
+):
+    df["transaction_id"].append(next(transaction_id))
+    df["account_id"].append(row.account_id)
+    df["transaction_date"].append(
+        fake.date_time_between(row.open_date, end_date)
+    )
+    df["transaction_type"].append(transaction_type)
+    df["transaction_channel"].append(transaction_channel)
+
+    df["merchant_name"].append(
+        merchant_name if transaction_type != "Salary" else "Employer"
+    )
+
+    df["amount"].append(amount)
+
+    is_incoming = random.random() >= 0.5
+
+    if transaction_type in ("Salary", "Deposit"):
+        balance += amount
+    elif transaction_type == "EFT":
+        if is_incoming:
+            balance += amount
+        else:
+            balance -= amount
+    else:
+        balance -= amount
+
+    df["reference"].append(reference)
+    df["balance_after_transaction"].append(balance)
+    df["is_fraud"].append(is_fraud)
+
 
 def generate_transactions_file():
 
